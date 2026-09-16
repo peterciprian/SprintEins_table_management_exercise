@@ -6,31 +6,24 @@ export type Table = {
   currentState: TableState;
 };
 
-export type BarArea = {
-  maxCapacity: number;
-  currentWaitingCount: number;
-};
-
 export enum TableState {
   FREE = "FREE",
   OCCUPIED = "OCCUPIED",
   BLOCKED = "BLOCKED",
 }
 
+export type BarArea = {
+  maxCapacity: number;
+  currentWaitingCount: number;
+};
+
 export type ReservationBlock = {
   id: string;
   tableId: string;
-  reservationId: string;
   blockStartTime: Date;
   blockEndTime: Date;
   guestProfileId: string | null;
 };
-
-export enum GroupStatus {
-  SEATED = "SEATED",
-  WAITING_AT_BAR = "WAITING_AT_BAR",
-  LEFT = "LEFT",
-}
 
 export type GuestGroup = {
   id: string;
@@ -40,6 +33,12 @@ export type GuestGroup = {
   assignedTableId: string | null;
   guestProfileId: string | null;
 };
+
+export enum GroupStatus {
+  SEATED = "SEATED",
+  WAITING_AT_BAR = "WAITING_AT_BAR",
+  LEFT = "LEFT",
+}
 
 export type BarQueueEntry = {
   id: string;

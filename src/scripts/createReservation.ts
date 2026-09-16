@@ -28,7 +28,6 @@ export function createReservationBlock(
   const newBlock: ReservationBlock = {
     id: `BLOCK-${reservationData.id}`,
     tableId: assignedTableId,
-    reservationId: reservationData.id,
     guestProfileId: reservationData.guestProfileId,
     blockStartTime,
     blockEndTime,

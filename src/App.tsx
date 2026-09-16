@@ -75,7 +75,7 @@ export function App() {
       }}
     >
       <h1>Table Reservation Manager</h1>
-      <section
+      <section id="check-in"
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
@@ -85,233 +85,288 @@ export function App() {
       >
         <Card
           title="Walk-in guest"
-          content={<>
-          <label>
-            Group size
-            <input
-              type="number"
-              min={1}
-              value={groupSize}
-              onChange={(event) => setGroupSize(Number(event.target.value))}
-              style={{
-                display: "block",
-                width: "100%",
-                marginTop: 6,
-                marginBottom: 12,
-              }}
-            />
-          </label>
-          <label>
-            Guest profile
-            <select
-              value={selectedGuestProfileId}
-              onChange={(event) =>
-                setSelectedGuestProfileId(event.target.value)
-              }
-              style={{
-                display: "block",
-                width: "100%",
-                marginTop: 6,
-                marginBottom: 12,
-              }}
-            >
-              <option value="">No profile</option>
-              {guestProfiles.map((profile) => (
-                <option key={profile.id} value={profile.id}>
-                  {profile.name}
-                </option>
-              ))}
-            </select>
-          </label>
-          <button onClick={() => handleWalkIn(groupSize, selectedTableId, selectedGuestProfileId, guestProfileId, setState)}>
-            Add to bar queue
-          </button>
-          </>}
+          content={
+            <>
+              <label>
+                Group size
+                <input
+                  type="number"
+                  min={1}
+                  value={groupSize}
+                  onChange={(event) => setGroupSize(Number(event.target.value))}
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    marginTop: 6,
+                    marginBottom: 12,
+                  }}
+                />
+              </label>
+              <label>
+                Guest profile
+                <select
+                  value={selectedGuestProfileId}
+                  onChange={(event) =>
+                    setSelectedGuestProfileId(event.target.value)
+                  }
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    marginTop: 6,
+                    marginBottom: 12,
+                  }}
+                >
+                  <option value="">No profile</option>
+                  {guestProfiles.map((profile) => (
+                    <option key={profile.id} value={profile.id}>
+                      {profile.name}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <button
+                onClick={() =>
+                  handleWalkIn(
+                    groupSize,
+                    selectedTableId,
+                    selectedGuestProfileId,
+                    guestProfileId,
+                    setState,
+                  )
+                }
+              >
+                Add to bar queue
+              </button>
+            </>
+          }
         />
         <Card
           title="Reservation block"
-          content={<>
-          <label>
-            Party size
-            <input
-              type="number"
-              min={1}
-              value={partySize}
-              onChange={(event) => setPartySize(Number(event.target.value))}
-              style={{
-                display: "block",
-                width: "100%",
-                marginTop: 6,
-                marginBottom: 12,
-              }}
-            />
-          </label>
-          <label>
-            Guest profile
-            <select
-              value={selectedGuestProfileId}
-              onChange={(event) =>
-                setSelectedGuestProfileId(event.target.value)
-              }
-              style={{
-                display: "block",
-                width: "100%",
-                marginTop: 6,
-                marginBottom: 12,
-              }}
-            >
-              <option value="">No guest profile</option>
-              {guestProfiles.map((profile) => (
-                <option key={profile.id} value={profile.id}>
-                  {profile.name}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label>
-            Start
-            <input
-              type="datetime-local"
-              value={reservationStart}
-              onChange={(event) => setReservationStart(event.target.value)}
-              style={{
-                display: "block",
-                width: "100%",
-                marginTop: 6,
-                marginBottom: 12,
-              }}
-            />
-          </label>
-          <label>
-            End
-            <input
-              type="datetime-local"
-              value={reservationEnd}
-              onChange={(event) => setReservationEnd(event.target.value)}
-              style={{
-                display: "block",
-                width: "100%",
-                marginTop: 6,
-                marginBottom: 12,
-              }}
-            />
-          </label>
-          <label>
-            Table
-            <select
-              value={selectedTableId}
-              onChange={(event) => setSelectedTableId(event.target.value)}
-              style={{
-                display: "block",
-                width: "100%",
-                marginTop: 6,
-                marginBottom: 12,
-              }}
-            >
-              <option value="">Select a table</option>
-              {availableTables.map((table) => (
-                <option key={table.id} value={table.id}>
-                  Table {table.tableNumber} ({table.maxCapacity} max)
-                </option>
-              ))}
-            </select>
-          </label>
-          <button onClick={() => handleReservation({ state, selectedGuestProfileId, guestProfileId, reservationStart, reservationEnd, selectedTableId, partySize, guestName, setState })}>
-            Create reservation block
-          </button>
-          </>}
+          content={
+            <>
+              <label>
+                Party size
+                <input
+                  type="number"
+                  min={1}
+                  value={partySize}
+                  onChange={(event) => setPartySize(Number(event.target.value))}
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    marginTop: 6,
+                    marginBottom: 12,
+                  }}
+                />
+              </label>
+              <label>
+                Guest profile
+                <select
+                  value={selectedGuestProfileId}
+                  onChange={(event) =>
+                    setSelectedGuestProfileId(event.target.value)
+                  }
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    marginTop: 6,
+                    marginBottom: 12,
+                  }}
+                >
+                  <option value="">No guest profile</option>
+                  {guestProfiles.map((profile) => (
+                    <option key={profile.id} value={profile.id}>
+                      {profile.name}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label>
+                Start
+                <input
+                  type="datetime-local"
+                  value={reservationStart}
+                  onChange={(event) => setReservationStart(event.target.value)}
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    marginTop: 6,
+                    marginBottom: 12,
+                  }}
+                />
+              </label>
+              <label>
+                End
+                <input
+                  type="datetime-local"
+                  value={reservationEnd}
+                  onChange={(event) => setReservationEnd(event.target.value)}
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    marginTop: 6,
+                    marginBottom: 12,
+                  }}
+                />
+              </label>
+              <label>
+                Table
+                <select
+                  value={selectedTableId}
+                  onChange={(event) => setSelectedTableId(event.target.value)}
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    marginTop: 6,
+                    marginBottom: 12,
+                  }}
+                >
+                  <option value="">Select a table</option>
+                  {availableTables.map((table) => (
+                    <option key={table.id} value={table.id}>
+                      Table {table.tableNumber} ({table.maxCapacity} max)
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <button
+                onClick={() =>
+                  handleReservation({
+                    state,
+                    selectedGuestProfileId,
+                    guestProfileId,
+                    reservationStart,
+                    reservationEnd,
+                    selectedTableId,
+                    partySize,
+                    guestName,
+                    setState,
+                  })
+                }
+              >
+                Create reservation block
+              </button>
+            </>
+          }
         />
         <Card
           title="Guest profile"
-          content={<>
-          <label>
-            Guest ID
-            <input
-              value={guestProfileId}
-              onChange={(event) => setGuestProfileId(event.target.value)}
-              style={{
-                display: "block",
-                width: "100%",
-                marginTop: 6,
-                marginBottom: 12,
-              }}
-            />
-          </label>
-          <label>
-            Name
-            <input
-              value={guestName}
-              onChange={(event) => setGuestName(event.target.value)}
-              style={{
-                display: "block",
-                width: "100%",
-                marginTop: 6,
-                marginBottom: 12,
-              }}
-            />
-          </label>
-          <label>
-            Phone
-            <input
-              value={guestPhone}
-              onChange={(event) => setGuestPhone(event.target.value)}
-              style={{
-                display: "block",
-                width: "100%",
-                marginTop: 6,
-                marginBottom: 12,
-              }}
-            />
-          </label>
-          <label style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <input
-              type="checkbox"
-              checked={guestIsRegular}
-              onChange={(event) => setGuestIsRegular(event.target.checked)}
-            />
-            Regular guest
-          </label>
-          <label style={{ display: "block", marginTop: 12 }}>
-            Expectation
-            {guestIsRegular ? "" : " (only regular guests can have one)"}
-            <input
-              value={guestExpectationText}
-              onChange={(event) => setGuestExpectationText(event.target.value)}
-              disabled={!guestIsRegular}
-              style={{
-                display: "block",
-                width: "100%",
-                marginTop: 6,
-                marginBottom: 12,
-              }}
-            />
-          </label>
-          <button onClick={() => handleAddGuestProfile({ guestProfileId, guestName, guestPhone, guestIsRegular, guestExpectationText, setGuestProfiles, setGuestExpectations, setSelectedGuestProfileId, setGuestProfileId })}>
-            Add guest profile
-          </button>
-          </>}
+          content={
+            <>
+              <label>
+                Guest ID
+                <input
+                  value={guestProfileId}
+                  onChange={(event) => setGuestProfileId(event.target.value)}
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    marginTop: 6,
+                    marginBottom: 12,
+                  }}
+                />
+              </label>
+              <label>
+                Name
+                <input
+                  value={guestName}
+                  onChange={(event) => setGuestName(event.target.value)}
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    marginTop: 6,
+                    marginBottom: 12,
+                  }}
+                />
+              </label>
+              <label>
+                Phone
+                <input
+                  value={guestPhone}
+                  onChange={(event) => setGuestPhone(event.target.value)}
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    marginTop: 6,
+                    marginBottom: 12,
+                  }}
+                />
+              </label>
+              <label style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <input
+                  type="checkbox"
+                  checked={guestIsRegular}
+                  onChange={(event) => setGuestIsRegular(event.target.checked)}
+                />
+                Regular guest
+              </label>
+              <label style={{ display: "block", marginTop: 12 }}>
+                Expectation
+                {guestIsRegular ? "" : " (only regular guests can have one)"}
+                <input
+                  value={guestExpectationText}
+                  onChange={(event) =>
+                    setGuestExpectationText(event.target.value)
+                  }
+                  disabled={!guestIsRegular}
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    marginTop: 6,
+                    marginBottom: 12,
+                  }}
+                />
+              </label>
+              <button
+                onClick={() =>
+                  handleAddGuestProfile({
+                    guestProfileId,
+                    guestName,
+                    guestPhone,
+                    guestIsRegular,
+                    guestExpectationText,
+                    setGuestProfiles,
+                    setGuestExpectations,
+                    setSelectedGuestProfileId,
+                    setGuestProfileId,
+                  })
+                }
+              >
+                Add guest profile
+              </button>
+            </>
+          }
         />
         <Card
           title="Floor controls"
-          content={<>
-          <button onClick={() => handleRefresh(setState)} style={{ marginBottom: 8 }}>
-            Refresh table states
-          </button>
-          <p>
-            Bar capacity: {state.bar.currentWaitingCount}/
-            {state.bar.maxCapacity}
-          </p>
-          </>}
+          content={
+            <>
+              <button
+                onClick={() => handleRefresh(setState)}
+                style={{ marginBottom: 8 }}
+              >
+                Refresh table states
+              </button>
+              <p>
+                Bar capacity: {state.bar.currentWaitingCount}/
+                {state.bar.maxCapacity}
+              </p>
+            </>
+          }
         />
       </section>
-      <section
+      <section id="tables"
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
           gap: 16,
         }}
       >
-        {state.tables.map((table) => (
+        {state.tables.map((table) => {
+          const seatedGuests = state.activeGroups.find((g) => g.assignedTableId === table.id)?.groupSize ?? 0;
+          const reservedFrom = state.activeBlocks.find((b) => b.tableId === table.id)?.blockStartTime;
+          const reservedTo = state.activeBlocks.find((b) => b.tableId === table.id)?.blockEndTime;
+          return (
           <button
             type="button"
             key={table.id}
@@ -333,13 +388,16 @@ export function App() {
           >
             <strong>Table {table.tableNumber}</strong>
             <p style={{ marginTop: 8 }}>Status: {table.currentState}</p>
-            <p>
-              Capacity: {table.minCapacity}-{table.maxCapacity}
-            </p>
-          </button>
-        ))}
+            <p>Capacity: {table.minCapacity}-{table.maxCapacity}</p>
+            {seatedGuests > 0 && <p>{seatedGuests} guests seated</p>}
+            {reservedFrom && reservedTo && (
+              <p>
+                Reserved from {reservedFrom.toLocaleTimeString()} to {reservedTo.toLocaleTimeString()}
+              </p>
+            )}            </button>
+        )})}
       </section>
-      <section
+      <section id="active-groups"
         style={{
           marginTop: 28,
           display: "grid",
@@ -349,75 +407,97 @@ export function App() {
       >
         <Card
           title="Active groups"
-          content={<>
-          {state.activeGroups.length === 0 ? (
-            <p>No groups yet.</p>
-          ) : (
-            <ul>
-              {state.activeGroups.map((group) => (
-                <li key={group.id} style={{ marginBottom: 8 }}>
-                  {group.id} · {group.groupSize} guests · {group.currentStatus}
-                  {group.currentStatus === GroupStatus.WAITING_AT_BAR && (
-                    <button
-                      onClick={() =>
-                        handleSeat(group.id, selectedTableId, setState)
-                      }
-                      style={{ marginLeft: 8 }}
-                    >
-                      Seat at selected table
-                    </button>
-                  )}
-                </li>
-              ))}
-            </ul>
-          )}
-          </>}
+          content={
+            <>
+              {state.activeGroups.length === 0 ? (
+                <p>No groups yet.</p>
+              ) : (
+                <ul>
+                  {state.activeGroups.map((group) => (
+                    <li key={group.id} style={{ marginBottom: 8 }}>
+                      {group.id} · {group.groupSize} guests ·{" "}
+                      {group.currentStatus}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </>
+          }
         />
         <Card
           title="Bar queue"
-          content={<>
-          {state.barQueue.length === 0 ? (
-            <p>Queue empty.</p>
-          ) : (
-            <ul>
-              {state.barQueue.map((entry) => (
-                <li key={entry.id}>{entry.groupId}</li>
-              ))}
-            </ul>
-          )}
-          </>}
+          content={
+            <>
+              {state.barQueue.length === 0 ? (
+                <p>Queue empty.</p>
+              ) : (
+                <ul>
+                  {state.barQueue.map((entry) => (
+                    <li key={entry.id}>
+                      {entry.groupId} ·{" "}
+                      {
+                        state.activeGroups.find((g) => g.id === entry.groupId)
+                          ?.groupSize
+                      }{" "}
+                      guests
+                      <button
+                        onClick={() =>
+                          handleSeat(entry.groupId, selectedTableId, setState)
+                        }
+                        style={{ marginLeft: 8 }}
+                      >
+                        Seat at selected table
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </>
+          }
         />
       </section>
       <section style={{ marginTop: 28 }}>
-        <Card title="Reservation blocks" content={reservationBlockRows.length === 0 ? (
-          <p>No reservation blocks yet.</p>
-        ) : (
-          <ul>
-            {reservationBlockRows.map(({ block, profile, tableNumber }) => (
-              <li key={block.id} style={{ marginBottom: 8 }}>
-                {profile
-                  ? `guest ${profile.id} (${profile.name})`
-                  : "guest profile unknown"}{" "}
-                on table {tableNumber}
-              </li>
-            ))}
-          </ul>
-        )} />
+        <Card
+          title="Reservation blocks"
+          content={
+            reservationBlockRows.length === 0 ? (
+              <p>No reservation blocks yet.</p>
+            ) : (
+              <ul>
+                {reservationBlockRows.map(({ block, profile, tableNumber }) => (
+                  <li key={block.id} style={{ marginBottom: 8 }}>
+                    {profile
+                      ? `guest ${profile.id} (${profile.name})`
+                      : "guest profile unknown"}{" "}
+                    on table {tableNumber}
+                  </li>
+                ))}
+              </ul>
+            )
+          }
+        />
       </section>
       <section style={{ marginTop: 28 }}>
-        <Card title="Regular guest expectations" content={regularGuestRows.length === 0 ? (
-          <p>No regular guest expectations saved.</p>
-        ) : (
-          <ul>
-            {regularGuestRows.map(({ profile, expectation, locationText }) => (
-              <li key={profile.id} style={{ marginBottom: 8 }}>
-                {expectation
-                  ? `guest ${profile.id} named ${profile.name} wants to ${expectation.preferenceNotes.toLowerCase()}, currently ${locationText}`
-                  : `guest ${profile.id} named ${profile.name} has no expectation saved, currently ${locationText}`}
-              </li>
-            ))}
-          </ul>
-        )} />
+        <Card
+          title="Regular guest expectations"
+          content={
+            regularGuestRows.length === 0 ? (
+              <p>No regular guest expectations saved.</p>
+            ) : (
+              <ul>
+                {regularGuestRows.map(
+                  ({ profile, expectation, locationText }) => (
+                    <li key={profile.id} style={{ marginBottom: 8 }}>
+                      {expectation
+                        ? `guest ${profile.id} named ${profile.name} wants to ${expectation.preferenceNotes.toLowerCase()}, currently ${locationText}`
+                        : `guest ${profile.id} named ${profile.name} has no expectation saved, currently ${locationText}`}
+                    </li>
+                  ),
+                )}
+              </ul>
+            )
+          }
+        />
       </section>
     </main>
   );
