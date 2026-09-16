@@ -468,7 +468,7 @@ export function App() {
                   <li key={block.id} style={{ marginBottom: 8 }}>
                     {profile
                       ? `guest ${profile.id} (${profile.name})`
-                      : "guest profile unknown"}{" "}
+                      : `reservation block ${block.id}`}{" "}
                     on table {tableNumber}
                   </li>
                 ))}
@@ -489,8 +489,8 @@ export function App() {
                   ({ profile, expectation, locationText }) => (
                     <li key={profile.id} style={{ marginBottom: 8 }}>
                       {expectation
-                        ? `guest ${profile.id} named ${profile.name} wants to ${expectation.preferenceNotes.toLowerCase()}, currently ${locationText}`
-                        : `guest ${profile.id} named ${profile.name} has no expectation saved, currently ${locationText}`}
+                        ? `guest ${profile.id} named ${profile.name} wants to ${expectation.preferenceNotes.toLowerCase()}, ${locationText}`
+                        : `guest ${profile.id} named ${profile.name} has no expectation saved, ${locationText}`}
                     </li>
                   ),
                 )}
