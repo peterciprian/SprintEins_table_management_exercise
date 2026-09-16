@@ -1,4 +1,4 @@
-import { FloorState, EnhancedReservationBlock } from "../Types";
+import { FloorState, ReservationBlock } from "../Types";
 
 /**
  * Creates a reservation block window for a table.
@@ -25,7 +25,7 @@ export function createReservationBlock(
   const blockStartTime = new Date(reservationData.blockStartTime);
   const blockEndTime = new Date(reservationData.blockEndTime);
 
-  const newBlock: EnhancedReservationBlock = {
+  const newBlock: ReservationBlock = {
     id: `BLOCK-${reservationData.id}`,
     tableId: assignedTableId,
     reservationId: reservationData.id,

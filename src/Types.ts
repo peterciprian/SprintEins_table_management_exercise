@@ -3,6 +3,7 @@ export type Table = {
   tableNumber: string;
   minCapacity: number;
   maxCapacity: number;
+  currentState: TableState;
 };
 
 export type BarArea = {
@@ -16,16 +17,13 @@ export enum TableState {
   BLOCKED = "BLOCKED",
 }
 
-export type EnhancedTable = Table & {
-  currentState: TableState;
-};
-
 export type ReservationBlock = {
   id: string;
   tableId: string;
   reservationId: string;
   blockStartTime: Date;
   blockEndTime: Date;
+  guestProfileId: string | null;
 };
 
 export enum GroupStatus {
@@ -40,6 +38,7 @@ export type GuestGroup = {
   currentStatus: GroupStatus;
   arrivalTime: Date;
   assignedTableId: string | null;
+  guestProfileId: string | null;
 };
 
 export type BarQueueEntry = {
@@ -61,18 +60,11 @@ export type GuestExpectation = {
   preferenceNotes: string;
   lastUpdated: Date;
 };
-export type EnhancedReservationBlock = ReservationBlock & {
-  guestProfileId: string | null;
-};
-
-export type EnhancedGuestGroup = GuestGroup & {
-  guestProfileId: string | null;
-};
 
 export type FloorState = {
-  tables: EnhancedTable[];
+  tables: Table[];
   bar: BarArea;
-  activeGroups: EnhancedGuestGroup[];
+  activeGroups: GuestGroup[];
   barQueue: BarQueueEntry[];
-  activeBlocks: EnhancedReservationBlock[];
+  activeBlocks: ReservationBlock[];
 };

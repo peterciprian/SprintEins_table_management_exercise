@@ -4,7 +4,7 @@ import {
   FloorState,
   GroupStatus,
   TableState,
-  type EnhancedTable,
+  type Table,
   type GuestExpectation,
   type GuestProfile,
 } from './Types';
@@ -13,7 +13,7 @@ import { createReservationBlock } from './scripts/createReservation';
 import { seatGuestGroup } from './scripts/seatGuestGroup';
 import { refreshTableStatesByTime } from './scripts/refreshTableStatesByTime';
 
-const initialTables: EnhancedTable[] = [
+const initialTables: Table[] = [
   { id: 'T1', tableNumber: '1', minCapacity: 1, maxCapacity: 3, currentState: TableState.FREE },
   { id: 'T2', tableNumber: '2', minCapacity: 1, maxCapacity: 3, currentState: TableState.FREE },
   { id: 'T3', tableNumber: '3', minCapacity: 1, maxCapacity: 3, currentState: TableState.FREE },

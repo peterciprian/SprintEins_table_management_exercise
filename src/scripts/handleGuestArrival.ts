@@ -1,4 +1,4 @@
-import { EnhancedGuestGroup, FloorState, BarQueueEntry, GroupStatus } from "../Types";
+import { GuestGroup, FloorState, BarQueueEntry, GroupStatus } from "../Types";
 
 /**
  * Handles the arrival of walk-in guest groups.
@@ -15,7 +15,7 @@ export function handleGuestArrival(
   // Check if the entire group can physically fit into the bar area
   const fitsInBar = barCurrentCount + newGroupData.groupSize <= barMaxCapacity;
 
-  const newGroup: EnhancedGuestGroup = {
+  const newGroup: GuestGroup = {
     id: newGroupData.id,
     groupSize: newGroupData.groupSize,
     guestProfileId: newGroupData.guestProfileId,
