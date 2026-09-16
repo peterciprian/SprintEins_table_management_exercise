@@ -66,7 +66,7 @@ export function App() {
   }));
 
   return (
-    <div
+    <main
       style={{
         fontFamily: "sans-serif",
         maxWidth: 960,
@@ -75,7 +75,7 @@ export function App() {
       }}
     >
       <h1>Table Reservation Manager</h1>
-      <div
+      <section
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
@@ -297,14 +297,14 @@ export function App() {
           <button onClick={() => handleRefresh(setState)} style={{ marginBottom: 8 }}>
             Refresh table states
           </button>
-          <div>
+          <p>
             Bar capacity: {state.bar.currentWaitingCount}/
             {state.bar.maxCapacity}
-          </div>
+          </p>
           </>}
         />
-      </div>
-      <div
+      </section>
+      <section
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
@@ -312,7 +312,8 @@ export function App() {
         }}
       >
         {state.tables.map((table) => (
-          <div
+          <button
+            type="button"
             key={table.id}
             onClick={() => setSelectedTableId(table.id)}
             style={{
@@ -325,17 +326,20 @@ export function App() {
               background: table.id === selectedTableId ? "#f3f3f3" : "#fff",
               opacity: table.currentState === TableState.FREE ? 1 : 0.65,
               cursor: "pointer",
+              font: "inherit",
+              textAlign: "left",
+              width: "100%",
             }}
           >
             <strong>Table {table.tableNumber}</strong>
-            <div style={{ marginTop: 8 }}>Status: {table.currentState}</div>
-            <div>
+            <p style={{ marginTop: 8 }}>Status: {table.currentState}</p>
+            <p>
               Capacity: {table.minCapacity}-{table.maxCapacity}
-            </div>
-          </div>
+            </p>
+          </button>
         ))}
-      </div>
-      <div
+      </section>
+      <section
         style={{
           marginTop: 28,
           display: "grid",
@@ -383,8 +387,8 @@ export function App() {
           )}
           </>}
         />
-      </div>
-      <div style={{ marginTop: 28 }}>
+      </section>
+      <section style={{ marginTop: 28 }}>
         <Card title="Reservation blocks" content={reservationBlockRows.length === 0 ? (
           <p>No reservation blocks yet.</p>
         ) : (
@@ -399,8 +403,8 @@ export function App() {
             ))}
           </ul>
         )} />
-      </div>
-      <div style={{ marginTop: 28 }}>
+      </section>
+      <section style={{ marginTop: 28 }}>
         <Card title="Regular guest expectations" content={regularGuestRows.length === 0 ? (
           <p>No regular guest expectations saved.</p>
         ) : (
@@ -414,7 +418,7 @@ export function App() {
             ))}
           </ul>
         )} />
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }
